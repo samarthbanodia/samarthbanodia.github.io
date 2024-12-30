@@ -1,142 +1,338 @@
-/* General Reset */
+/* General Reset and Variables */
+:root {
+  --primary-color-light: #6c63ff;
+  --primary-color-dark: #8f8aff;
+  --text-color-light: #2c3e50;
+  --text-color-dark: #e9ecef;
+  --background-light: #e9ecef;
+  --background-dark: #1c1c1c;
+  --accent-color-light: #ffc107;
+  --accent-color-dark: #ffdb4d;
+  --icon-color-light: #6c63ff;
+  --icon-color-dark: #8f8aff;
+  --shape-color-1-light: rgba(108, 99, 255, 0.3);
+  --shape-color-1-dark: rgba(143, 138, 255, 0.3);
+  --shape-color-2-light: rgba(255, 193, 7, 0.2);
+  --shape-color-2-dark: rgba(255, 219, 77, 0.2);
+  --shape-color-3-light: rgba(74, 71, 163, 0.2);
+  --shape-color-3-dark: rgba(94, 91, 183, 0.2);
+  --transition: all 0.3s ease;
+  --grid-color-light: rgba(108, 99, 255, 0.1);
+  --grid-color-dark: rgba(255, 255, 255, 0.07);
+  --grid-line-light: var(--background-light);
+  --grid-line-dark: #1c1c1c;
+  --grid-size: 22px;
+}
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #e9ecef; /* Light base color */
-    background-image: 
-      linear-gradient(135deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px), 
-      linear-gradient(225deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-      linear-gradient(to right, #f8f9fa 1px, transparent 1px),
-      linear-gradient(to bottom, #f8f9fa 1px, transparent 1px);
-    background-size: 20px 20px, 20px 20px, 20px 20px, 20px 20px;
-    color: #333;
-    transition: background 0.5s, color 0.5s;
-  }
-  
-  body.dark {
-    background-color: #1c1c1c; /* Dark base color */
-    background-image: 
-      linear-gradient(135deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px), 
-      linear-gradient(225deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(to right, #2e2e2e 1px, transparent 1px),
-      linear-gradient(to bottom, #2e2e2e 1px, transparent 1px);
-    background-size: 20px 20px, 20px 20px, 20px 20px, 20px 20px;
-    color: #f8f9fa;
-  }
-  
-  
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 50px;
-  }
-  
-  header h1 {
-    font-family: 'Pacifico', cursive;
-    font-size: 2.5rem;
-    color: #6c63ff;
-  }
-  
-  /* .theme-toggle {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #6c63ff;
-    transition: transform 0.3s;
-  }
-  
-  .theme-toggle:hover {
-    transform: rotate(20deg);
-  } */
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--background-light);
+  color: var(--text-color-light);
+  overflow-x: hidden;
+}
 
+/* Grid Background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(90deg, var(--grid-line-light) 20px, transparent 1%) center,
+    linear-gradient(var(--grid-line-light) 20px, transparent 1%) center,
+    var(--grid-color-light);
+  background-size: var(--grid-size) var(--grid-size);
+  z-index: -2;
+  animation: gridMove 30s linear infinite;
+  transition: var(--transition);
+}
+
+@keyframes gridMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 22px 22px;
+  }
+}
+
+/* Animated Background Shapes */
+.shapes {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  opacity: 0.7; /* Slightly reduce shape opacity to show grid better */
+}
+
+.shape {
+  position: absolute;
+  filter: blur(100px);
+  opacity: 0.5;
+  animation: float 10s infinite;
+}
+
+.shape-1 {
+  background: var(--shape-color-1-light);
+  width: 300px;
+  height: 300px;
+  top: 20%;
+  left: 10%;
+}
+
+.shape-2 {
+  background: var(--shape-color-2-light);
+  width: 350px;
+  height: 350px;
+  top: 50%;
+  right: 15%;
+}
+
+.shape-3 {
+  background: var(--shape-color-3-light);
+  width: 250px;
+  height: 250px;
+  bottom: 10%;
+  left: 30%;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(10deg); }
+}
+
+/* Container and Header */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  position: relative;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: var(--primary-color-light);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Intro Section */
+.intro {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.typing-container {
+  margin-bottom: 1.5rem;
+}
+
+.typing-text {
+  font-size: 2rem;
+  border-right: 3px solid var(--primary-color-light);
+  animation: typing 3.5s steps(30, end), blink .75s step-end infinite;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.bio {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.skill-tag {
+  background: rgba(108, 99, 255, 0.1);
+  color: var(--primary-color-light);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.skill-tag:hover {
+  background: var(--primary-color-light);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.photo {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.photo-frame {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  transition: var(--transition);
+  width: 100%;
+  aspect-ratio: 3/4;
+}
+
+.photo-frame:hover {
+  transform: translateY(-10px) rotate(2deg);
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Footer */
+footer {
+  margin-top: 6rem;
+  text-align: center;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.social-icons .icon {
+  font-size: 1.5rem;
+  color: var(--icon-color-light);
+  transition: var(--transition);
+}
+
+.social-icons .icon:hover {
+  transform: translateY(-5px) scale(1.1);
+  color: var(--primary-color-dark);
+}
+
+.footer-text {
+  color: var(--text-color-light);
+  opacity: 0.8;
+}
+
+.footer-text .fa-heart {
+  color: #e74c3c;
+  animation: heartbeat 1.5s infinite;
+}
+
+/* Dark Mode */
+body.dark {
+  background: var(--background-dark);
+  color: var(--text-color-dark);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .photo {
+    max-width: 250px;
+  }
+  
   .intro {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 50px;
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
-  
-  .intro .info {
-    flex: 1;
-    font-size: 1.1rem;
-    line-height: 1.6;
+
+  header h1 {
+    font-size: 2rem;
   }
-  
-  .intro .photo {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .intro .photo img {
-    width: 300px; /* Adjusted photo width */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 10px; /* Slightly rounded corners, can be set to 0 for a sharp rectangle */
-    border: 5px solid #6c63ff; /* Border color */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Add a shadow for aesthetics */
-    transition: transform 0.5s ease;
-  }
-  
-  .intro .photo img:hover {
-    transform: scale(1.05); /* Subtle zoom effect on hover */
-  }
-  
-  
-  .intro .photo img:hover {
-    transform: scale(1.1) rotate(5deg);
-  }
-  
-  footer {
-    margin-top: 50px;
-    text-align: center;
-  }
-  
-  .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  .social-icons .icon {
+
+  .typing-text {
     font-size: 1.5rem;
-    color: #6c63ff;
-    transition: transform 0.3s, color 0.3s;
   }
-  
-  .social-icons .icon:hover {
-    transform: scale(1.2);
-    color: #333;
-  }
-  
-  body.dark header h1 {
-    color: #ffc107;
-  }
-  
-  body.dark .theme-toggle {
-    color: #ffc107;
-  }
-  
-  body.dark .intro .photo img {
-    border-color: #ffc107;
-  }
-  
-  body.dark .social-icons .icon {
-    color: #ffc107;
-  }
-  
+}
+
+/* Update the cta-buttons styling */
+.cta-buttons {
+  display: flex;
+  justify-content: center; /* Centers the button */
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Remove any resume-button related styles if they exist */
+
+/* Add this for dark mode compatibility */
+body.dark::before {
+  background: 
+    radial-gradient(circle at center, var(--grid-color-dark) 1px, transparent 1px) center;
+  background-size: var(--grid-size) var(--grid-size);
+  filter: none;
+  mix-blend-mode: normal;
+}
+
+/* Add this to your CSS */
+.visitor-counter {
+  margin-top: 2rem;
+  text-align: center;
+  opacity: 0.8;
+  transition: var(--transition);
+}
+
+.visitor-counter:hover {
+  opacity: 1;
+}
+
+.visitor-counter p {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-color-light);
+}
+
+.visitor-counter img {
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Dark mode adjustment */
+body.dark .visitor-counter p {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+body.dark .shape-1 {
+  background: var(--shape-color-1-dark);
+}
+
+body.dark .shape-2 {
+  background: var(--shape-color-2-dark);
+}
+
+body.dark .shape-3 {
+  background: var(--shape-color-3-dark);
+}
+
+body.dark header h1 {
+  color: var(--primary-color-dark);
+}
+
+body.dark .social-icons .icon {
+  color: var(--icon-color-dark);
+}
+
+body.dark .skill-tag {
+  background: rgba(143, 138, 255, 0.1);
+  color: var(--primary-color-dark);
+}

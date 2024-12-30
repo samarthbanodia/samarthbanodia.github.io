@@ -1,33 +1,34 @@
 // Dark/Light Mode Toggle
 // const themeToggle = document.getElementById('theme-switch');
-const body = document.body;
+document.addEventListener('DOMContentLoaded', function() {
+  AOS.init({
+    duration: 1000,
+    once: true,
+    offset: 100
+  });
 
-var themeToggle = document.getElementById('theme-switch__checkbox').checked;
-
-
-
-var checkbox = document.getElementById('theme-switch__checkbox');
-
-checkbox.addEventListener('change', function() {
-  body.classList.toggle('dark');
-
-  if (this.checked) {
-    console.log("Checkbox is checked..");
-  } else {
-    console.log("Checkbox is not checked..");
+  const body = document.body;
+  const checkbox = document.getElementById('theme-switch__checkbox');
+  
+  // Check for saved theme preference
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    body.classList.add('dark');
+    checkbox.checked = true;
   }
-});
 
-
-themeToggle.addEventListener( () => {
-  body.classList.toggle('dark');
-  const icon = themeToggle.querySelector('i');
-  if (body.classList.contains('dark') || themeToggle == 'true' ) {
-    console.log('dark modeeeee')
-    icon.classList.remove('fa-moon');
-    icon.classList.add('fa-sun');
-  } else {
-    icon.classList.remove('fa-sun');
-    icon.classList.add('fa-moon');
-  }
+  checkbox.addEventListener('change', function() {
+    body.classList.toggle('dark');
+    
+    // Save theme preference
+    localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+    
+    // Update favicon based on theme
+    const favicon = document.querySelector("link[rel='icon']");
+    if (body.classList.contains('dark')) {
+      favicon.href = "icons8-oggy-dark.gif"; // Create a dark version of your favicon
+    } else {
+      favicon.href = "icons8-oggy.gif";
+    }
+  });
 });

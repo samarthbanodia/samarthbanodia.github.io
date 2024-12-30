@@ -155,6 +155,7 @@ header h1 {
   font-size: 1.1rem;
   line-height: 1.8;
   margin-bottom: 2rem;
+  text-align: left;
 }
 
 .skills {
@@ -263,14 +264,32 @@ body.dark {
   .typing-text {
     font-size: 1.5rem;
   }
+
+  .bio {
+    text-align: left;
+  }
+  
+  .cta-buttons {
+    margin: 1.5rem auto;
+  }
+
+  .photo-frame:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+  }
+  
+  .photo-frame:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
 }
 
 /* Update the cta-buttons styling */
 .cta-buttons {
   display: flex;
-  justify-content: center; /* Centers the button */
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  justify-content: center;
+  width: 100%;
+  margin: 2rem auto;
 }
 
 /* Remove any resume-button related styles if they exist */
